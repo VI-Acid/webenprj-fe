@@ -1,11 +1,13 @@
-<script setup lang="ts">
-import Navbar from '@/components/organisms/Navbar.vue'
-</script>
-
 <template>
-  <Navbar />
-  <main class="container mx-auto px-4 py-6">
-    <RouterView />
-  </main>
+  <div class="min-h-screen flex">
+    <!-- Main Content -->
+    <main class="flex-1">
+      <RouterView />
+    </main>
+  </div>
 </template>
 
+<script setup lang="ts">
+import { RouterView } from 'vue-router'
+//import Navbar from '@/components/organisms/Navbar.vue'
+</script>

@@ -1,38 +1,238 @@
-@import './base.css';
-@import "tailwindcss";
+/* 1) Imports */
+@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
 
+/* 2) Design-Tokens (Tailwind v4 @theme) */
+@theme {
+  /* Fonts → erzeugt Utilities: font-heading, font-body */
+  --font-heading: 'Syncopate', 'Inter', ui-sans-serif, system-ui;
+  --font-body: 'Nunito', 'Inter', ui-sans-serif, system-ui;
 
+  /* Farben (semantisch gruppiert) */
+  /* 🎨 Neutral (Hintergründe, Text, Ränder) */
+  --color-neutral-50: #ffffff; /* Weiß – Haupt-Hintergrundfarbe */
+  --color-neutral-100: #f8f9fa; /* Sehr helles Grau – Sekundärhintergrund */
+  --color-neutral-200: #e0e0e0; /* Mittelgrau – Rahmen, Trennlinien */
+  --color-neutral-900: #4a4a4a; /* Dunkelgrau – Standard-Textfarbe */
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+  /* 💙 Primary (Markenfarbe, Buttons, Links) */
+  --color-primary-50: #000000; /* Schwarz – Sonderfarbe (Text, Icons) */
+  --color-primary-300: #94b9ff; /* Hellblau – Hover, Akzente */
+  --color-primary-400: #6c88bf; /* Mittelblau – Standardfarbe für Buttons */
+  --color-primary-900: #1b263b; /* Dunkelblau – Header, aktive Zustände */
+
+  /* 🩵 Secondary (Unterstützende Akzentfarbe) */
+  --color-secondary-100: #cdffd8; /* Sehr helles Mint – Hintergrundakzent */
+  --color-secondary-200: #a4dae9; /* Hellblaugrün – Hoverfarbe / Sekundärbutton */
+  --color-secondary-700: #0c6d76; /* Dunkles Türkis – Sekundärfarbe aktiv */
+
+  /* Status */
+  /* ✅ Success (Erfolg, positive Statusmeldungen) */
+  --color-success-300: #cdffd8; /* Sehr hellgrün – Erfolgshintergrund */
+  --color-success-500: #62bb87; /* Sattgrün – Hauptfarbe für Success / Bestätigung */
+  /* ⚠️ Warning (Hinweise, gelbe Meldungen) */
+  --color-warning-300: #f8edd0; /* Sehr helles Gelb – Warnhintergrund */
+  --color-warning-500: #ffb039; /* Kräftiges Orangegelb – Hauptwarnfarbe */
+  /* ❌ Danger (Fehler, kritische Zustände) */
+  --color-danger-300: #ffcdcd; /* Hellrot – Fehlerhintergrund */
+  --color-danger-600: #ce2525; /* Intensivrot – Hauptfehlerfarbe (Text, Buttons) */
+
+  /* Radius / Shadow (für Karten, Avatar) */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --shadow-card: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.06);
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
+/* 3) Base-Styles (nur globale Elemente, keine Komponenten!) */
+@layer base {
+  html,
+  body,
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+    height: 100%;
+  }
+  body {
+    @apply bg-neutral-50 text-neutral-900 font-body antialiased;
+  }
+
+  h1 {
+    @apply font-heading text-3xl font-normal text-primary-900;
+  }
+
+  h2 {
+    @apply font-body text-2xl font-normal text-primary-900;
+  }
+
+  h3 {
+    @apply font-body text-xl font-normal text-primary-400;
+  }
+
+  p {
+    @apply font-body text-base text-neutral-900 leading-relaxed;
+  }
+
+  small {
+    @apply text-sm text-neutral-600;
+  }
+
+  /* Barrierefreiheit */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 }
+
+/* 4) Wiederverwendbare Utility-/Komponenten-Klassen (Atoms-Level) */
+@layer components {
+  /* Layout Helpers */
+  .container-app {
+    @apply mx-auto w-full max-w-6xl px-4;
+  }
+  .section {
+    @apply mx-auto w-full max-w-6xl px-4 py-6 md:py-10;
+  }
+
+  /* Buttons – Grundstil + Varianten */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2
+           px-10 py-2 text-base font-medium rounded-xl
+           transition shadow focus-visible:outline-none
+           focus-visible:ring-2 focus-visible:ring-primary-300;
+  }
+  .btn-primary {
+    @apply bg-primary-400 text-white hover:bg-primary-900 active:bg-primary-300;
+  }
+  .btn-outline {
+    @apply border border-primary-400 text-primary-900 hover:bg-primary-50 hover:text-white;
+  }
+  .btn-ghost {
+    @apply bg-transparent text-neutral-900 border border-neutral-200;
+  }
+  .btn-danger {
+    @apply bg-danger-600 text-white hover:bg-danger-300;
+  }
+  .btn-sm {
+    @apply px-8 py-1.5 text-sm;
+  }
+  .btn-lg {
+    @apply px-15 py-3 text-xl;
+  }
+
+  /* Form Controls */
+  .input {
+    @apply w-full rounded-xl border border-neutral-200 bg-white
+           px-3 py-2 text-sm shadow-sm
+           placeholder:text-neutral-600
+           focus:border-primary-400 focus:ring-2 focus:ring-primary-300 outline-none;
+  }
+  .textarea {
+    @apply w-full rounded-xl border border-neutral-200 bg-white
+           px-3 py-2 text-sm shadow-sm
+           placeholder:text-neutral-600
+           focus:border-primary-400 focus:ring-2 focus:ring-primary-300 outline-none
+           min-h-28;
+  }
+  .select {
+    @apply w-full rounded-xl border border-neutral-200 bg-white
+           px-3 py-2 text-sm shadow-sm pr-8
+           focus:border-primary-400 focus:ring-2 focus:ring-primary-300 outline-none;
+  }
+  .label {
+    @apply block text-sm font-medium text-neutral-900 mb-1;
+  }
+  .help {
+    @apply mt-1 text-xs text-neutral-600;
+  }
+  .invalid {
+    @apply border-danger-600 focus:ring-danger-300;
+  }
+
+  /* Cards */
+  .card {
+    @apply rounded-2xl bg-white shadow;
+    box-shadow: var(--shadow-card);
+  }
+  .card-pad {
+    @apply p-4 md:p-6;
+  }
+  .card-header {
+    @apply flex items-center justify-between gap-2;
+  }
+  .card-body {
+    @apply mt-3;
+  }
+  .card-actions {
+    @apply mt-4 flex items-center gap-2;
+  }
+
+  /* Chips / Tags */
+  .chip {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-xs;
+  }
+  .chip-muted {
+    @apply bg-neutral-200 text-neutral-600;
+  }
+  .tag {
+    @apply bg-primary-50 text-neutral-50;
+  }
+
+  /* Navbar Link (für deine NavLink-Atoms) */
+  .navbar-link {
+    @apply flex items-center gap-3 px-4 py-2 rounded-lg
+           font-heading text-base text-primary-900
+           transition-colors duration-200;
+  }
+  .navbar-link:hover {
+    @apply bg-primary-300 text-primary-900;
+  }
+  .router-link-active.navbar-link {
+    @apply bg-primary-300 text-neutral-50;
+  }
+  .navbar-link svg {
+    @apply inline-block;
+  }
+  .router-link-active.navbar-link svg {
+    @apply text-neutral-50;
+  }
+
+  /* Avatar / Profilbild-Rahmen (aus deinem Figma) */
+  .avatar {
+    @apply inline-block overflow-hidden rounded-full
+         bg-gradient-to-tr from-secondary-100 via-secondary-200 to-primary-400 p-[3px];
+  }
+  /* Größen: immer zusammen mit .avatar verwenden */
+  .avatar-sm {
+    width: 32px;
+    height: 32px;
+  }
+  .avatar-md {
+    width: 48px;
+    height: 48px;
+  }
+  .avatar-lg {
+    width: 72px;
+    height: 72px;
+  }
+
+  .avatar-img {
+    @apply w-full h-full rounded-full object-cover;
+  }
+
+  /* Utility: Trennlinie */
+  .divider {
+    @apply h-px bg-neutral-200 w-full;
+  }
+}
+
+/* 5) (Optional) Utilities-Feinschliff – NICHTS komponentenspezifisches hier! */
+/* Keine alten Media Queries oder Grid-Forcings für #app – Layout kommt aus Templates/Pages */

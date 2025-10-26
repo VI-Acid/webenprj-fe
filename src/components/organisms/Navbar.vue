@@ -4,48 +4,87 @@ import BaseIcon from '@/components/atoms/BaseIcon.vue'
 </script>
 
 <template>
+  <!-- Sidebar (Desktop) -->
   <nav
-    class="fixed left-0 top-0 h-screen w-75 bg-neutral-200 border-r border-neutral-100 flex flex-col items-start p-6 shadow-sm"
+    class="hidden md:flex fixed left-0 top-0 h-screen w-64 bg-white border-r border-neutral-200 flex-col justify-between p-6 shadow-sm"
   >
     <!-- Logo + Titel -->
-    <div class="flex items-center gap-1 mb-10">
-      <img src="@/assets/Weben - Logo Motivise.svg" alt="Motivise Logo" class="w-20 h-20" />
-      <h1>MOTIVISE</h1>
+    <div>
+      <div class="flex items-center gap-1 mb-10">
+        <img
+          src="@/assets/Weben - Logo Motivise.svg"
+          alt="Motivise Logo"
+          class="w-20 h-20 rounded-lg"
+        />
+        <h1 class="font-heading text-xl tracking-wide">MOTIVISE</h1>
+      </div>
+
+      <!-- Menülinks -->
+      <div class="flex flex-col gap-6 w-full mt-2">
+        <RouterLink :to="{ name: 'home' }" class="navbar-link w-full">
+          <BaseIcon name="HomeIcon" />
+          <span><h2>Home</h2></span>
+        </RouterLink>
+
+        <RouterLink :to="{ name: 'resources' }" class="navbar-link">
+          <BaseIcon name="FolderIcon" />
+          <span><h2>Resources</h2></span>
+        </RouterLink>
+
+        <RouterLink :to="{ name: 'imprint' }" class="navbar-link">
+          <BaseIcon name="DocumentTextIcon" />
+          <span><h2>Imprint</h2></span>
+        </RouterLink>
+
+        <RouterLink :to="{ name: 'help' }" class="navbar-link">
+          <BaseIcon name="QuestionMarkCircleIcon" />
+          <span><h2>Help</h2></span>
+        </RouterLink>
+      </div>
     </div>
 
-    <!-- Menülinks -->
+    <!-- Logout unten -->
     <div class="flex flex-col gap-6 w-full mt-2">
-      <RouterLink :to="{ name: 'home' }" class="navbar-link w-full">
-        <BaseIcon name="HomeIcon" />
-        <span><h2>Home</h2></span>
-      </RouterLink>
-
-      <RouterLink :to="{ name: 'resources' }" class="navbar-link w-full">
-        <BaseIcon name="FolderIcon" />
-        <span><h2>Resources</h2></span>
-      </RouterLink>
-
-      <RouterLink :to="{ name: 'imprint' }" class="navbar-link w-full">
-        <BaseIcon name="DocumentTextIcon" />
-        <span><h2>Imprint</h2></span>
-      </RouterLink>
-
-      <RouterLink :to="{ name: 'help' }" class="navbar-link w-full">
-        <BaseIcon name="QuestionMarkCircleIcon" />
-        <span><h2>Help</h2></span>
-      </RouterLink>
-
-      <RouterLink :to="{ name: 'login' }" class="navbar-link w-full">
-        <BaseIcon name="UserIcon" />
-        <span><h2>Login</h2></span>
-      </RouterLink>
-
-      <RouterLink :to="{ name: 'register' }" class="navbar-link w-full">
-        <BaseIcon name="UserPlusIcon" />
-        <span><h2>Register</h2></span>
-      </RouterLink>
+      <button class="text-sm text-neutral-500 hover:text-danger-600 transition-colors">
+        <BaseIcon name="ArrowLeftEndOnRectangleIcon" />
+        <span><h2>Logout</h2></span>
+      </button>
     </div>
   </nav>
-</template>
 
-<script setup lang="ts"></script>
+  <!-- Bottom Navigation (Mobile) -->
+  <nav class="md:hidden fixed bottom-0 inset-x-0 bg-white border-t border-neutral-200 shadow-sm">
+    <ul class="grid grid-cols-5 text-sm text-neutral-700">
+      <li>
+        <RouterLink :to="{ name: 'home' }" class="tab-link">
+          <BaseIcon name="HomeIcon" class="w-6 h-6" />
+          <small>Home</small>
+        </RouterLink>
+      </li>
+      <li>
+        <RouterLink :to="{ name: 'resources' }" class="tab-link">
+          <BaseIcon name="FolderIcon" class="w-6 h-6" />
+          <small>Res.</small>
+        </RouterLink>
+      </li>
+      <li>
+        <RouterLink :to="{ name: 'imprint' }" class="tab-link">
+          <BaseIcon name="DocumentTextIcon" class="w-6 h-6" />
+          <small>Imp.</small>
+        </RouterLink>
+      </li>
+      <li>
+        <RouterLink :to="{ name: 'help' }" class="tab-link">
+          <BaseIcon name="QuestionMarkCircleIcon" class="w-6 h-6" />
+          <small>Help</small>
+        </RouterLink>
+      </li>
+      <li>
+        <RouterLink :to="{ name: 'login' }" class="tab-link">
+          <BaseIcon name="UserIcon" class="w-6 h-6" />
+          <small>User</small>
+        </RouterLink>
+      </li>
+    </ul>
+  </nav>
+</template>

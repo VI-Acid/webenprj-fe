@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 // import AppButton from '@/components/atoms/AppButton.vue'
-import FormInput from '@/components/atoms/FormInput.vue'
+import FormInput from '@/components/atoms/BaseInput.vue'
 
 const props = withDefaults(defineProps<{ submitLabel?: string }>(), {
   submitLabel: 'Submit',

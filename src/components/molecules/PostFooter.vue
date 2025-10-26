@@ -1,0 +1,31 @@
+<!--(ActionsBar) – Likes/Comments/Save/Share-->
+
+<template>
+  <div class="card-actions justify-between text-neutral-900">
+    <div class="flex items-center gap-5">
+      <button class="flex items-center gap-1" @click="emit('like')">
+        <BaseIcon name="HeartIcon" /><span>{{ likes }}</span>
+      </button>
+      <button class="flex items-center gap-1" @click="emit('comment')">
+        <BaseIcon name="ChatBubbleOvalLeftIcon" /><span>{{ comments }}</span>
+      </button>
+      <div class="flex items-center gap-1">
+        <BaseIcon name="BoltIcon" /><span>{{ streak }}</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <button @click="emit('save')"><BaseIcon name="BookmarkIcon" /></button>
+      <button @click="emit('share')"><BaseIcon name="ShareIcon" /></button>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import BaseIcon from '@/components/atoms/BaseIcon.vue'
+const props = withDefaults(defineProps<{ likes?: number; comments?: number; streak?: number }>(), {
+  likes: 0,
+  comments: 0,
+  streak: 0,
+})
+const emit = defineEmits<{ like: []; comment: []; share: []; save: [] }>()
+</script>

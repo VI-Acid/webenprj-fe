@@ -1,16 +1,22 @@
+<!--für Datei-Uploads-->
+
 <template>
   <div>
-    <label v-if="label" class="block text-sm mb-1">{{ label }}</label>
-    <input type="file" :accept="accept" @change="onChange" />
-    <p v-if="error" class="text-sm text-red-400 mt-1">{{ error }}</p>
+    <BaseLabel v-if="label">{{ label }}</BaseLabel>
+    <input type="file" class="input" :accept="accept" @change="onChange" />
+    <BaseError v-if="error">{{ error }}</BaseError>
   </div>
 </template>
 
 <script setup lang="ts">
+import BaseLabel from '@/components/atoms/BaseLabel.vue'
+import BaseError from '@/components/atoms/BaseError.vue'
+
 const props = defineProps<{ label?: string; accept?: string; error?: string }>()
-const emit = defineEmits<{ (e:'selected', f:File): void }>()
+const emit = defineEmits<{ (e: 'selected', file: File): void }>()
+
 function onChange(e: Event) {
-  const f = (e.target as HTMLInputElement).files?.[0]
-  if (f) emit('selected', f)
+  const file = (e.target as HTMLInputElement).files?.[0]
+  if (file) emit('selected', file)
 }
 </script>

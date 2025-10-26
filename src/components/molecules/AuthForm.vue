@@ -9,13 +9,16 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import AppButton from '@/components/atoms/AppButton.vue'
+// import AppButton from '@/components/atoms/AppButton.vue'
 import FormInput from '@/components/atoms/FormInput.vue'
 
 const props = withDefaults(defineProps<{ submitLabel?: string }>(), {
-  submitLabel: 'Submit'
+  submitLabel: 'Submit',
 })
-const emit = defineEmits<{ (e:'submit', payload:{email:string; password:string}): void }>()
-const email = ref(''); const password = ref('')
-function onSubmit() { emit('submit', { email: email.value, password: password.value }) }
+const emit = defineEmits<{ (e: 'submit', payload: { email: string; password: string }): void }>()
+const email = ref('')
+const password = ref('')
+function onSubmit() {
+  emit('submit', { email: email.value, password: password.value })
+}
 </script>

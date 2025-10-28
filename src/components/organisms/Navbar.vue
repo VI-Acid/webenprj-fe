@@ -1,6 +1,18 @@
 <!-- src/components/organisms/Navbar.vue -->
 <script setup lang="ts">
 import BaseIcon from '@/components/atoms/BaseIcon.vue'
+import { useUserStore } from '@/stores/userStore'
+import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+
+const userStore = useUserStore()
+const router = useRouter()
+const moreOpen = ref(false)
+
+function handleLogout() {
+  userStore.logout()
+  router.push({ name: 'login' })
+}
 </script>
 
 <template>
@@ -19,7 +31,7 @@ import BaseIcon from '@/components/atoms/BaseIcon.vue'
         <h1 class="font-heading text-xl tracking-wide">MOTIVISE</h1>
       </div>
 
-      <!-- Menülinks -->
+      <!-- Hauptmenülinks -->
       <div class="flex flex-col gap-6 w-full mt-2">
         <RouterLink :to="{ name: 'home' }" class="navbar-link w-full">
           <BaseIcon name="HomeIcon" />
@@ -40,16 +52,22 @@ import BaseIcon from '@/components/atoms/BaseIcon.vue'
           <BaseIcon name="QuestionMarkCircleIcon" />
           <span><h2>Help</h2></span>
         </RouterLink>
+
+        <RouterLink :to="{ name: 'profile' }" class="navbar-link">
+          <div class="avatar avatar-sm">
+            <img src="@/assets/user4.avif" alt="User avatar" class="avatar-img" />
+          </div>
+          <span><h2>Profile</h2></span>
+        </RouterLink>
       </div>
     </div>
 
     <!-- Logout unten -->
-    <div class="flex flex-col gap-6 w-full mt-2">
-      <button class="text-sm text-neutral-500 hover:text-danger-600 transition-colors">
-        <BaseIcon name="ArrowLeftEndOnRectangleIcon" />
-        <span><h2>Logout</h2></span>
-      </button>
-    </div>
+
+    <button @click="handleLogout" class="navbar-link">
+      <BaseIcon name="ArrowLeftEndOnRectangleIcon" />
+      <span><h2>Logout</h2></span>
+    </button>
   </nav>
 
   <!-- Bottom Navigation (Mobile) -->

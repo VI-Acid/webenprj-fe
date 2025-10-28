@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { authApi } from '@/services/api'
+import router from '@/router'
 
 type User = { id: number; name: string; email?: string } | null
 
@@ -28,6 +29,7 @@ export const useUserStore = defineStore('user', {
       this.token = null
       this.user = null
       localStorage.removeItem('token')
+      router.push({ name: 'login' })
     },
   },
 })

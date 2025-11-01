@@ -1,43 +1,96 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import * as yup from 'yup'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/userStore'
 import BaseFormfield from '@/components/atoms/BaseFormfield.vue'
 import BaseInput from '@/components/atoms/BaseInput.vue'
+import BaseSelect from '@/components/atoms/BaseSelect.vue'
 import BaseButton from '@/components/atoms/BaseButton.vue'
 import ToastMessage from '@/components/molecules/ToastMessage.vue'
+import { COUNTRIES_DACH_FIRST } from '@/utils/countries.ts' // siehe Datei unten
 
 const router = useRouter()
 const store = useUserStore()
 
+// form state
+const salutation = ref<'male' | 'female' | 'other' | ''>('')
+const otherText = ref('')
 const username = ref('')
 const email = ref('')
 const password = ref('')
+const repeatPw = ref('')
+const country = ref('')
+
 const loading = ref(false)
 const toast = ref({ show: false, msg: '', variant: 'error' as const })
 
+// Fehlermeldungen aus yup in ein Record mappen
+const errors = ref<Record<string, string>>({})
+
+// starkes Passwort (>=12, Groß/Klein, Zahl, Symbol)
+const strongPw = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{12,}$/
+
 const schema = yup.object({
-  username: yup.string().required('Username required'),
+  salutation: yup
+    .string()
+    .oneOf(['male', 'female', 'other'])
+    .required('Please select a salutation'),
+  otherText: yup
+    .string()
+    .max(30, 'Max. 30 characters')
+    .when('salutation', ([sal]) =>
+      sal === 'other' ? yup.string().required('Please specify') : yup.string().notRequired(),
+    ),
   email: yup.string().email('Invalid email').required('Email required'),
-  password: yup.string().min(6, 'Min. 6 characters').required('Password required'),
+  username: yup.string().required('Username required'),
+  password: yup
+    .string()
+    .matches(strongPw, 'Min. 12 chars incl. upper, lower, number & symbol')
+    .required('Password required'),
+  repeatPw: yup
+    .string()
+    .oneOf([yup.ref('password')], 'Passwords must match')
+    .required('Please repeat the password'),
+  country: yup.string().required('Please select a country'),
 })
 
 async function submit() {
   try {
     loading.value = true
-    await schema.validate(
-      { username: username.value, email: email.value, password: password.value },
-      { abortEarly: false },
-    )
+    errors.value = {}
+
+    const payload = {
+      salutation: salutation.value || undefined,
+      otherText: otherText.value || undefined,
+      email: email.value,
+      username: username.value,
+      password: password.value,
+      repeatPw: repeatPw.value,
+      country: country.value,
+    }
+
+    await schema.validate(payload, { abortEarly: false })
+
+    // Demo-Register → nutzt deinen Store
     await store.register({ username: username.value, email: email.value, password: password.value })
     router.push({ name: 'home' })
   } catch (err: any) {
-    toast.value = { show: true, msg: err?.message || 'Registration failed', variant: 'error' }
+    if (err?.inner?.length) {
+      // mehrere yup-Fehler
+      const map: Record<string, string> = {}
+      for (const e of err.inner) if (e.path && !map[e.path]) map[e.path] = e.message
+      errors.value = map
+      toast.value = { show: true, msg: 'Please fix the highlighted fields', variant: 'error' }
+    } else {
+      toast.value = { show: true, msg: err?.message || 'Registration failed', variant: 'error' }
+    }
   } finally {
     loading.value = false
   }
 }
+
+const showOther = computed(() => salutation.value === 'other')
 </script>
 
 <template>
@@ -46,19 +99,78 @@ async function submit() {
     <div class="card card-pad space-y-3">
       <h2>Create account</h2>
 
-      <BaseFormfield label="Username">
-        <BaseInput v-model="username" placeholder="Username" />
+      <!-- Salutation -->
+      <BaseFormfield label="Salutation" :error="errors.salutation">
+        <BaseSelect v-model="salutation" :invalid="!!errors.salutation">
+          <option value="" disabled selected>Select…</option>
+          <option value="male">male</option>
+          <option value="female">female</option>
+          <option value="other">other</option>
+        </BaseSelect>
       </BaseFormfield>
 
-      <BaseFormfield label="Email">
-        <BaseInput v-model="email" placeholder="Email address" />
+      <!-- Salutation 'other' details -->
+      <BaseFormfield
+        v-if="showOther"
+        label="Please specify"
+        :error="errors.otherText"
+        help="Max. 30 characters"
+      >
+        <BaseInput
+          v-model="otherText"
+          :invalid="!!errors.otherText"
+          placeholder="e.g., non-binary"
+        />
       </BaseFormfield>
 
-      <BaseFormfield label="Password">
-        <BaseInput v-model="password" placeholder="Password" />
+      <!-- Email -->
+      <BaseFormfield label="Email" :error="errors.email">
+        <BaseInput v-model="email" :invalid="!!errors.email" placeholder="Email address" />
       </BaseFormfield>
 
-      <BaseButton class="w-full" :disabled="loading" @click="submit"> Register </BaseButton>
+      <!-- Username -->
+      <BaseFormfield label="Username" :error="errors.username">
+        <BaseInput v-model="username" :invalid="!!errors.username" placeholder="Username" />
+      </BaseFormfield>
+
+      <!-- Password -->
+      <BaseFormfield
+        label="Password"
+        :error="errors.password"
+        help="Min. 12 chars incl. upper, lower, number & symbol"
+      >
+        <!-- Falls BaseInput bereits type unterstützt; sonst deinen FormInput nutzen -->
+        <BaseInput
+          v-model="password"
+          :invalid="!!errors.password"
+          placeholder="••••••••••••"
+          type="password"
+        />
+      </BaseFormfield>
+
+      <!-- Repeat Password -->
+      <BaseFormfield label="Repeat password" :error="errors.repeatPw">
+        <BaseInput
+          v-model="repeatPw"
+          :invalid="!!errors.repeatPw"
+          placeholder="••••••••••••"
+          type="password"
+        />
+      </BaseFormfield>
+
+      <!-- Country -->
+      <BaseFormfield label="Country" :error="errors.country">
+        <BaseSelect v-model="country" :invalid="!!errors.country">
+          <option value="" disabled selected>Select country…</option>
+          <option v-for="c in COUNTRIES_DACH_FIRST" :key="c" :value="c">
+            {{ c }}
+          </option>
+        </BaseSelect>
+      </BaseFormfield>
+
+      <BaseButton class="w-full" :disabled="loading" @click="submit">
+        {{ loading ? 'Creating…' : 'Register' }}
+      </BaseButton>
 
       <small class="block text-center">
         Already have an account?

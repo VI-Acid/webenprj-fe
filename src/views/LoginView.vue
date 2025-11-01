@@ -7,7 +7,7 @@ import BaseInput from '@/components/atoms/BaseInput.vue'
 import BaseButton from '@/components/atoms/BaseButton.vue'
 import ToastMessage from '@/components/molecules/ToastMessage.vue'
 
-const username = ref('')
+const identifier = ref('') // <-- neu: username or email
 const password = ref('')
 const router = useRouter()
 const store = useUserStore()
@@ -15,8 +15,8 @@ const toast = ref({ show: false, msg: '', variant: 'error' as const })
 
 async function submit() {
   try {
-    if (!username.value || !password.value) throw new Error('Please fill in all fields')
-    await store.login({ username: username.value, password: password.value })
+    if (!identifier.value || !password.value) throw new Error('Please fill in all fields')
+    await store.login({ identifier: identifier.value, password: password.value }) // <-- neu
     router.push({ name: 'home' })
   } catch (err: any) {
     toast.value = { show: true, msg: err.message, variant: 'error' }
@@ -30,8 +30,8 @@ async function submit() {
     <div class="card card-pad space-y-3">
       <h2>Login</h2>
 
-      <BaseFormfield label="Username">
-        <BaseInput v-model="username" placeholder="Username" />
+      <BaseFormfield label="Username or Email">
+        <BaseInput v-model="identifier" placeholder="username or email" />
       </BaseFormfield>
 
       <BaseFormfield label="Password">

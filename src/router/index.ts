@@ -27,6 +27,7 @@ const routes: RouteRecordRaw[] = [
   { path: '/imprint', name: 'imprint', component: () => import('@/views/ImprintView.vue') },
   { path: '/help', name: 'help', component: () => import('@/views/HelpView.vue') },
   { path: '/profile', name: 'profile', component: () => import('@/views/ProfileView.vue') },
+  { path: '/playground', name: 'playground', component: () => import('@/views/Playground.vue') },
   {
     path: '/styleguide',
     name: 'styleguide',
@@ -44,16 +45,19 @@ const router = createRouter({
 router.beforeEach((to) => {
   const store = useUserStore()
 
-  // Auth-Seiten frei zugänglich
-  if (to.meta.authPage) return true
-
-  // alle anderen nur mit Login
-  if (!store.isAuthenticated) return { name: 'login' }
-
-  // wenn eingeloggt und jemand versucht auf auth page
-  if (store.isAuthenticated && (to.name === 'login' || to.name === 'register')) {
+  // Eingeloggt und will auf Login/Register? -> nach Home
+  if (store.isAuthenticated && to.meta.authPage) {
     return { name: 'home' }
   }
+
+  // Auth-Seiten frei zugänglich (für nicht eingeloggte)
+  if (to.meta.authPage) return true
+
+  // Alle anderen Seiten erfordern Login
+  if (!store.isAuthenticated) {
+    return { name: 'login' }
+  }
+
   return true
 })
 

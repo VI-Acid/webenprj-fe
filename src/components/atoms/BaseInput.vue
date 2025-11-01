@@ -1,5 +1,6 @@
 <template>
   <input
+    :type="type || 'text'"
     :class="['input', { invalid }]"
     :value="modelValue"
     :placeholder="placeholder"
@@ -8,6 +9,6 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ modelValue?: string; invalid?: boolean; placeholder?: string }>()
+defineProps<{ modelValue?: string; invalid?: boolean; placeholder?: string; type?: string }>()
 const emit = defineEmits<{ 'update:modelValue': [string] }>()
 </script>

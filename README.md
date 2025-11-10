@@ -3,8 +3,6 @@
 Motivise is a modern **Vue 3 Single Page Application (SPA)** built with **Vite**, **Pinia**, **Axios** and **TailwindCSS**.  
 It’s part of the WEBEN course project at _FH Technikum Wien_ and complements the Motivise **Spring Boot backend**.
 
----
-
 ## 🌟 Main Idea
 
 Students can post short updates about what they studied today –  
@@ -20,8 +18,6 @@ Each post may contain:
 
 Administrators can manage users, roles and posts.
 
----
-
 ## 🧩 Tech Stack
 
 | Layer            | Technology                                            |
@@ -35,15 +31,7 @@ Administrators can manage users, roles and posts.
 | Auth             | JWT-based via backend                                 |
 | Accessibility    | Checked with Google Lighthouse & validator.w3.org     |
 
----
-
 ## 🚀 Quick Setup
-
-### Prerequisites
-
-- Node.js ≥ 18
-- npm or yarn
-- (optional) VS Code + Volar Extension
 
 ### 1️⃣ Clone the repository
 
@@ -64,19 +52,35 @@ npm install
 npm run dev
 ```
 
+### 4️⃣ Connect to backend
+
+Make sure the backend (Motivise – Backend) runs at http://localhost:8081
+You can adjust the base URL in src/services/api.ts → API_BASE_URL.
+
+## 🌐 Access Overview
+
+| Service                   | URL                                         |
+| :------------------------ | :------------------------------------------ |
+| Frontend App              | http://localhost:5173                       |
+| Backend API               | http://localhost:8081                       |
+| Swagger UI (Backend Docs) | http://localhost:8081/swagger-ui/index.html |
+
 ## 🧭 Project Structure
 
 ```bash
 src/
-├─ assets/            # images, icons, logo
+├─ assets/            # images, icons, logo, main.css
 ├─ components/
 │   ├─ atoms/         # Base components (buttons, inputs, icons …)
 │   ├─ molecules/     # Small UI groups (SearchBar, AuthForm …)
 │   └─ organisms/     # Larger blocks (Navbar, PostCard …)
-├─ views/             # Pages / routes (Home, Login, Register …)
-├─ stores/            # Pinia stores (userStore)
+├─ data/              # Demo data for Posts
 ├─ router/            # Vue Router configuration
-├─ api.ts             # Axios helper + API base config
+├─ services/          # api.ts - Axios helper + API base config
+├─ stores/            # Pinia stores (userStore)
+├─ types/             # Interfaces + Types
+├─ utils/             # Static Data - DACH Countries
+├─ views/             # Pages / routes (Home, Login, Register …)
 ├─ main.ts            # App bootstrap
-└─ main.css           # Tailwind design tokens + base styles
+└─ App.vue            # Single Page Application
 ```

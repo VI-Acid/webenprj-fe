@@ -1,54 +1,82 @@
-# weben_frontend
+# 🎓 Motivise – Study Micro-Blogging Platform (Frontend)
 
-This template should help get you started developing with Vue 3 in Vite.
+Motivise is a modern **Vue 3 Single Page Application (SPA)** built with **Vite**, **Pinia**, **Axios** and **TailwindCSS**.  
+It’s part of the WEBEN course project at _FH Technikum Wien_ and complements the Motivise **Spring Boot backend**.
 
-## Recommended IDE Setup
+---
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 🌟 Main Idea
 
-## Recommended Browser Setup
+Students can post short updates about what they studied today –  
+similar to a micro-blog that motivates and connects learners.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+Each post may contain:
 
-## Type Support for `.vue` Imports in TS
+- ✏️ a short learning note
+- 🖼️ an image or PDF attachment
+- 🏷️ study tags (e.g. `#math`, `#marketing`)
+- 💬 comments and likes
+- 🔥 optional “study streaks”
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+Administrators can manage users, roles and posts.
 
-## Customize configuration
+---
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## 🧩 Tech Stack
 
-## Project Setup
+| Layer            | Technology                                            |
+| :--------------- | :---------------------------------------------------- |
+| Framework        | Vue 3 + Vite                                          |
+| State Management | Pinia                                                 |
+| HTTP Client      | Axios                                                 |
+| Validation       | Yup                                                   |
+| Styling          | Tailwind CSS v4 + custom design tokens                |
+| Architecture     | Atomic Design (Atoms → Molecules → Organisms → Views) |
+| Auth             | JWT-based via backend                                 |
+| Accessibility    | Checked with Google Lighthouse & validator.w3.org     |
 
-```sh
+---
+
+## 🚀 Quick Setup
+
+### Prerequisites
+
+- Node.js ≥ 18
+- npm or yarn
+- (optional) VS Code + Volar Extension
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/VI-Acid/webenprj-fe
+cd webenprj-fe
+```
+
+### 2️⃣ Install dependencies
+
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 3️⃣ Run development server
 
-```sh
+```bash
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+## 🧭 Project Structure
 
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
+```bash
+src/
+├─ assets/            # images, icons, logo
+├─ components/
+│   ├─ atoms/         # Base components (buttons, inputs, icons …)
+│   ├─ molecules/     # Small UI groups (SearchBar, AuthForm …)
+│   └─ organisms/     # Larger blocks (Navbar, PostCard …)
+├─ views/             # Pages / routes (Home, Login, Register …)
+├─ stores/            # Pinia stores (userStore)
+├─ router/            # Vue Router configuration
+├─ api.ts             # Axios helper + API base config
+├─ main.ts            # App bootstrap
+└─ main.css           # Tailwind design tokens + base styles
 ```

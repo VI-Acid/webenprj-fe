@@ -17,7 +17,7 @@ import BaseDivider from '@/components/atoms/BaseDivider.vue'
         </p>
       </div>
 
-      <BaseDivider></BaseDivider>
+      <BaseDivider />
 
       <div class="mb-6 mt-6">
         <p>
@@ -28,7 +28,7 @@ import BaseDivider from '@/components/atoms/BaseDivider.vue'
         </p>
       </div>
 
-      <BaseDivider></BaseDivider>
+      <BaseDivider />
 
       <div class="mb-6 mt-6">
         <p>

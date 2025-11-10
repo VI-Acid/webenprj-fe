@@ -15,7 +15,7 @@
         </p>
       </div>
 
-      <BaseDivider></BaseDivider>
+      <BaseDivider />
 
       <div class="mb-6 mt-6">
         <h3>💬 Can I comment or like other posts?</h3>
@@ -24,7 +24,7 @@
         </p>
       </div>
 
-      <BaseDivider></BaseDivider>
+      <BaseDivider />
 
       <div class="mb-6 mt-6">
         <h3>🔒 I forgot my password. What can I do?</h3>
@@ -34,7 +34,7 @@
         </p>
       </div>
 
-      <BaseDivider></BaseDivider>
+      <BaseDivider />
 
       <div class="mb-6 mt-6">
         <h3>📨 Still need help?</h3>

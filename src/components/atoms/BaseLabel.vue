@@ -1,5 +1,4 @@
 <!-- für Formularbeschriftungen -->
-
 <template>
   <label class="label">
     <slot />

@@ -1,5 +1,4 @@
 <!--Wrapper für deine Status-Meldungen (success | warning | error). Zeigt Icon, Titel, Text-->
-
 <template>
   <transition name="fade">
     <div v-if="show" class="card p-4" :class="styles[variant].wrap">

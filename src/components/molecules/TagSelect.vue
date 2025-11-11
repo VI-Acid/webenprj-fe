@@ -1,5 +1,4 @@
 <!--Single-Select für Subjects-->
-
 <template>
   <BaseSelect :modelValue="modelValue" @update:modelValue="(v) => emit('update:modelValue', v)">
     <option value="" disabled selected v-if="!modelValue">

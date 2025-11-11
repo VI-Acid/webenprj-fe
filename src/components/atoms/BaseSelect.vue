@@ -1,5 +1,4 @@
 <!-- für Dropdowns (z. B. Fächer, Tags, Filter) -->
-
 <template>
   <select
     :class="['select', { invalid }]"

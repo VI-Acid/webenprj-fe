@@ -1,5 +1,4 @@
 <!-- kombiniert Label + Control + Help/Error zu einem Paket, für später z. B. im Post-Formular)-->
-
 <template>
   <div class="mb-4">
     <BaseLabel v-if="label">{{ label }}</BaseLabel>

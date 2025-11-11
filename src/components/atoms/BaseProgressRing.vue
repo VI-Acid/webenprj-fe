@@ -1,5 +1,4 @@
 <!--Für Prozentanzeigen (z. B. Lernfortschritt, Study Streaks)-->
-
 <template>
   <svg :width="size" :height="size" class="transform -rotate-90">
     <circle

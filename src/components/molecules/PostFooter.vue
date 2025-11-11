@@ -1,5 +1,4 @@
 <!--(ActionsBar) – Likes/Comments/Save/Share-->
-
 <template>
   <div class="card-actions justify-between text-neutral-900">
     <div class="flex items-center gap-5">

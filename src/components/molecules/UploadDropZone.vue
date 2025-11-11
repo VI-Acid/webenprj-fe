@@ -1,5 +1,4 @@
 <!--Kleine Dropzone + Preview; nutzt deinen FilePicker-Atom-->
-
 <template>
   <div class="space-y-2">
     <BaseLabel v-if="label">{{ label }}</BaseLabel>

@@ -1,5 +1,4 @@
 <!--Input + Button-->
-
 <template>
   <div class="flex items-center gap-2">
     <BaseInput v-model="term" placeholder="Search" />

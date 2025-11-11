@@ -1,5 +1,4 @@
 <!--Avatar + Name-->
-
 <template>
   <div class="flex items-center gap-3">
     <BaseAvatar :src="src" :size="size" />

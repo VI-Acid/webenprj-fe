@@ -1,5 +1,4 @@
 <!--UserBadge + Tag-Chip + „Subscribe“-Button-->
-
 <template>
   <div class="card-header flex flex-wrap md:flex-nowrap items-center justify-between gap-3 min-w-0">
     <!-- links: Avatar + Name + Tag -->

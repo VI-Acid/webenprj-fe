@@ -1,5 +1,4 @@
 <!--für Fehlermeldungen (z. B. „Bitte Feld ausfüllen“)-->
-
 <template>
   <p class="help text-danger-600">
     <slot />

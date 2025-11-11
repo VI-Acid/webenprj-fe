@@ -1,5 +1,4 @@
 <!--kleine Tag-/Status-Komponente (z. B. #Mathe, #Motivation)-->
-
 <template>
   <span :class="['chip', variantClass]">
     <slot />

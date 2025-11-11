@@ -1,5 +1,4 @@
 <!--Zeile für „Study Progress“ (Subject + linearer Balken + Ring + Button)-->
-
 <template>
   <div class="py-4">
     <!-- Header-Zeile -->

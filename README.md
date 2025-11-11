@@ -14,7 +14,7 @@ Each post may contain:
 - 🖼️ an image or PDF attachment
 - 🏷️ study tags (e.g. `#math`, `#marketing`)
 - 💬 comments and likes
-- 🔥 optional “study streaks”
+- 🔥 (if there will be enough time: “study streaks”)
 
 Administrators can manage users, roles and posts.
 

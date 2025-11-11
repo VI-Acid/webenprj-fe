@@ -1,5 +1,4 @@
 <!-- für längere Texteingaben (z. B. Post schreiben, Kommentare) -->
-
 <template>
   <textarea
     :class="['textarea', { invalid }]"

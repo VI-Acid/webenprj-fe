@@ -1,5 +1,4 @@
 <!--Eingabe + Senden-Icon-->
-
 <template>
   <div class="flex items-stretch gap-2">
     <div class="flex-1 relative">

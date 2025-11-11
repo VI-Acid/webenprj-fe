@@ -1,5 +1,4 @@
 <!--für Datei-Uploads-->
-
 <template>
   <div>
     <BaseLabel v-if="label">{{ label }}</BaseLabel>

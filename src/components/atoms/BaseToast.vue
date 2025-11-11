@@ -1,5 +1,4 @@
 <!--Kurze Erfolg-/Fehlernachrichten-->
-
 <template>
   <div :class="['card p-3 text-white', colorClass]">
     <slot />

@@ -1,5 +1,4 @@
 <!--Textarea mit Live-Counter (Default 30 Zeichen)-->
-
 <template>
   <div class="space-y-1">
     <BaseTextarea

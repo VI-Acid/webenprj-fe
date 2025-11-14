@@ -1,5 +1,4 @@
 <!--Container für Posts, Profile, etc. (nutzt .card, .card-header, .card-body …)-->
-
 <template>
   <article :class="['card', 'card-pad', sizeClass]">
     <header v-if="$slots.header" class="card-header">

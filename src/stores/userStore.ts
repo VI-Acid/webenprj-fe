@@ -12,7 +12,7 @@ type User = {
 // Nur intern für Demo-Login:
 type DemoUser = User & { password: string }
 
-// 🧩 Demo-Daten für Milestone 1
+// Demo-Daten für Milestone 1
 const DEMO_USERS: (User & { password: string })[] = [
   {
     id: 1,

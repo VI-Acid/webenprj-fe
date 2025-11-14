@@ -1,5 +1,4 @@
 <!--Benutzerbild mit Größenoption (greift auf .avatar, .avatar-md etc. zu)-->
-
 <template>
   <div :class="['avatar', sizeClass]">
     <img v-if="src" :src="src" alt="Avatar" class="avatar-img" />

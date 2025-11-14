@@ -259,7 +259,7 @@
     @apply max-w-[550px] mx-auto my-8;
   }
 
-  // Responsive
+  /* Responsive */
   .content-shell {
     @apply w-full mx-auto;
   }

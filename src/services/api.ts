@@ -20,7 +20,7 @@ export const authApi = {
   login: async ({ username, password }: { username: string; password: string }) => {
     await new Promise((r) => setTimeout(r, 400))
 
-    // 👇 Dummy-Check – akzeptiert nur "demo" / "demo"
+    // Dummy-Check – akzeptiert nur "demo" / "demo"
     if (username === 'demo' && password === 'demo') {
       return {
         token: 'fake-demo-token',
